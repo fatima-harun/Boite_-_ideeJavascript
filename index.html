@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire Bootstrap</title>
+    <!-- Inclure le CSS de Bootstrap -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Boite à idée</h2>
+        <form>
+            <div class="form-group">
+                <label for="idee">Titre de l'idée</label>
+                <input type="text" class="form-control" id="idee" placeholder="Entrez votre idée">
+            </div>
+            <div class="form-group">
+                <label for="">Sélectionner une catégorie</label>
+               <div><select name="" id="categorie">
+                  <option value="">Sport</option>
+                  <option value="">Santé</option>
+                  <option value="">Education</option>
+                  <option value="">Technologie</option>
+                  <option value="">Environnement</option>
+                  <option value="">Autres</option>
+                </select></div> 
+            </div>
+            <div class="form-group">
+              <div>  <label for="input3">Description</label></div>
+               <textarea name="" id="description" placeholder="Donner une description de votre idée" rows="7" cols="70"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Soumettre</button>
+        </form>
+    </div>
+
+    <!-- Inclure le JS de Bootstrap et ses dépendances -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
