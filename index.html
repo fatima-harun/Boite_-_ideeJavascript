@@ -11,10 +11,11 @@
 <body>
     <div class="container mt-5">
         <h2>Boite à idée</h2>
-        <form>
+        <form method="POST">
             <div class="form-group">
-                <label for="idee">Titre de l'idée</label>
-                <input type="text" class="form-control" id="idee" placeholder="Entrez votre idée">
+                <label for="titre">Titre de l'idée</label>
+                <input type="text" class="form-control" id="titre" placeholder="Entrez votre idée">
+                <span id="error"></span>
             </div>
             <div class="form-group">
                 <label for="">Sélectionner une catégorie</label>
@@ -31,11 +32,13 @@
               <div>  <label for="input3">Description</label></div>
                <textarea name="" id="description" placeholder="Donner une description de votre idée" rows="7" cols="70"></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Soumettre</button>
+            <button type="submit" class="btn btn-primary" value="ajoutidee">Ajouter une idée</button>
         </form>
     </div>
-
+    <div id="containeridea">
+    </div>
     <!-- Inclure le JS de Bootstrap et ses dépendances -->
+     <script src="script.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
