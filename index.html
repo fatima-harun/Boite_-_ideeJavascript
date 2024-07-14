@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Boxe idée avec Javascript</title>
+</head>
+<body>
+    <header>
+        <nav>
+        </nav>
+    </header>
+    <div class="container">
+        <div class="box1">
+            <form action="" id="myform">
+                <h1>Formulaire d'ajout d'idées</h1>
+                <div class="container1">
+                    <div>
+                      <p>  <label for="titre">Titre</label></p>
+                        <input type="text" id="titre" placeholder="Donner le titre de l'idée" >
+                        <span id="error"></span>
+                    </div>
+                    <div>
+                        <p><label for="categorie">Catégorie</label></p>
+                        <select name="categorie" id="categorie">
+                            <option selected>Selectionner</option>
+                            <option value="sport">Sport</option>
+                            <option value="Education">Education</option>
+                            <option value="Environnement">Environnement</option>
+                            <option value="Santé">Santé</option>
+                            <option value="Technologie">Technologie</option>
+                            <option value="Autres">Autres</option>
+                        </select>
+                        <span id="error"></span>
+                    </div>
+                </div>
+                <div>
+                    <p><label for="description">Description</label></p> 
+                     <textarea name="description" id="description" placeholder="Faites la description de l'idée" cols="74" rows="10"></textarea>
+                     <span id="error"></span>
+                 </div>
+                 <button type="button"  class="submit" >Soumettre</button>
+            </form>
+        </div>
+        <div class="box2">
+            <img src="img/4884792-removebg-preview.png" alt="Image de présentation">
+        </div>
+    </div>
+    <div>
+        <h2>Liste des idées</h2>
+        <div id="card">
+              
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
