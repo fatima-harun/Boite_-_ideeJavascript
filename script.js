@@ -1,152 +1,112 @@
-/*prendre l'intégralité documentde la page HTML sur laquelle nous travaillons et écouter l'événement
- 'DOMContentLoaded'qui se produit essentiellement lorsque l'ensemble du DOM a fini de se charger.
-  Une fois cet événement entendu, il exécute ensuite le code que nous avons placé entre les accolades {}que j'ai commentées pour vous.*/
-document.addEventListener('DOMContentLoaded', function() { 
-
-  const containeridea = document.getElementById('containeridea');// faire apparaître nos livres
-  const ideeURL = `http://localhost:3000/books`;/*constante pour l'URL de notre base de données de idees.
-  lorsque nous utiliserons l'URL pour récupérer des données, nous n'aurons pas besoin de tout saisir !*/
-
-  // Récupération des idées
-  fetch(ideeURL) //extraire les données de ideeURL avec fetch
-      .then(response => response.json()) //prenons les reponses de ideeURL(toutes les données de la base de données) et l'exécutons .json()
-      .then(ideeData => {   
-          let tableContent = ` /* initialisée pour créer une structure de table HTML, prête à être remplie avec les données des idées.  */
-          <table class="table">
-              <thead>
-                  <tr>
-                      <th scope="col">ID</th>
-                      <th scope="col">Titre</th>
-                      <th scope="col">Catégorie</th>
-                      <th scope="col">Description</th>
-                      <th scope="col">Actions</th>
-                  </tr>
-              </thead>
-              <tbody>
-          `;
-
-          // Remplissage de la table avec les données des idées
-          ideeData.forEach(function(idee) { //forEach pour ajouter chaque idée à la table,
-              tableContent += `
-              <tr id="idee-${idee.id}">
-                  <th scope="row">${idee.id}</th>
-                  <td>${idee.titre}</td>
-                  <td>${idee.categorie}</td>
-                  <td>${idee.description}</td>
-                  <td>
-                      <button data-id="${idee.id}" id="approve-${idee.id}" data-action="approve" class="btn btn-success">Approuver</button>
-                      <button data-id="${idee.id}" id="reject-${idee.id}" data-action="reject" class="btn btn-warning">Désapprouver</button>
-                      <button data-id="${idee.id}" id="delete-${idee.id}" data-action="delete" class="btn btn-danger">Supprimer</button>
-                  </td>
-              </tr>
-              `;
-          });
-
-          tableContent += `
-              </tbody>
-          </table>
-          `;
-
-          // Affichage du contenu de la table
-          containeridea.innerHTML = tableContent;
-      });
-
-  const form = document.querySelector('form');
-  const messageDiv = document.getElementById('message');
-
-  form.addEventListener('submit', (e) => { 
-      e.preventDefault();
-      
-      const titreInput = form.querySelector('#titre').value;  
-      const categorieInput = form.querySelector('#categorie').value; 
-      const descriptionInput = form.querySelector('#description').value;
-
-      let valid = true;
-
-      // Vérification des champs avec regex
-      const titleRegex = /^[a-zA-Z0-9\s]{3,50}$/; // Titre doit contenir entre 3 et 50 caractères alphanumériques
-      const descriptionRegex = /^.{10,500}$/; // Description doit contenir entre 10 et 500 caractères
-
-      if (!titleRegex.test(titreInput)) {
-          document.getElementById('error-titre').innerText = 'Le titre est requis et doit contenir entre 3 et 50 caractères alphanumériques.';
-          valid = false;
-      } else {
-          document.getElementById('error-titre').innerText = '';
-      }
-
-      if (!descriptionRegex.test(descriptionInput)) {
-          document.getElementById('error-description').innerText = 'La description est requise et doit contenir entre 10 et 500 caractères.';
-          valid = false;
-      } else {
-          document.getElementById('error-description').innerText = '';
-      }
-
-      if (valid) {
-          fetch(ideeURL, {
-              method: 'POST',
-              body: JSON.stringify({ /* prend les données que nous y introduisons et les transforme 
-                                         en données stringifiées, difficiles à lire pour les humains, mais plus faciles à lire pour JSON.*/
-                 titre: titreInput,
-                  categorie: categorieInput,
-                  description: descriptionInput,
-              }),
-              headers: {
-                  'Content-Type': 'application/json'
-              }
-          })
-          .then(response => {
-              if (response.ok) {
-                  messageDiv.innerHTML = '<div class="alert alert-success">Idée ajoutée avec succès.</div>';
-                  form.reset(); // Réinitialisation du formulaire après ajout
-              } else {
-                  return response.json().then(data => {
-                      throw new Error(data.message || 'Erreur lors de l\'ajout de l\'idée.');
-                  });
-              }
-          })
-          .catch(error => {
-              messageDiv.innerHTML = `<div class="alert alert-danger">${error.message}</div>`;
-          })
-          .finally(() => {
-              setTimeout(() => {
-                  messageDiv.innerHTML = '';
-              }, 2000);
-          });
-      } else {
-          messageDiv.innerHTML = '<div class="alert alert-danger">Veuillez remplir tous les champs requis.</div>';
-          setTimeout(() => {
-              messageDiv.innerHTML = '';
-          }, 2000);
-      }
-  });
-
-  containeridea.addEventListener('click', (e) => { 
-      if (e.target.dataset.action === 'approve' || e.target.dataset.action === 'reject') { 
-          e.target.disabled = true;
-      }
-
-      if (e.target.dataset.action === 'delete') {
-          const ideeId = e.target.dataset.id;
-          document.getElementById(`idee-${ideeId}`).remove();
-          fetch(`${ideeURL}/${ideeId}`, {
-              method: 'DELETE',
-              headers: {
-                  'Content-Type': 'application/json'
-              }
-          })
-          .then(response => response.json())
-          .then(() => {
-              messageDiv.innerHTML = '<div class="alert alert-success">Idée supprimée avec succès.</div>';
-              setTimeout(() => {
-                  messageDiv.innerHTML = '';
-              }, 2000);
-          })
-          .catch(error => {
-              messageDiv.innerHTML = `<div class="alert alert-danger">Erreur lors de la suppression de l'idée.</div>`;
-              setTimeout(() => {
-                  messageDiv.innerHTML = '';
-              }, 2000);
-          });
-      }
-  });
+document.addEventListener('DOMContentLoaded', function () {
+  // Récupérer les idées du local storage
+  const storedIdees = JSON.parse(localStorage.getItem('idees')) || [];
+  afficherIdees(storedIdees);
 });
+
+document.querySelector('.submit').addEventListener('click', function (event) {
+  event.preventDefault();
+
+  // Récupérer les valeurs des champs
+  const titre = document.getElementById('titre').value;
+  const categorie = document.getElementById('categorie').value;
+  const description = document.getElementById('description').value;
+
+  // Effacer les messages d'erreur précédents
+  document.querySelectorAll('#myform .error').forEach(function (element) {
+      element.innerText = '';
+  });
+
+  let isValid = true;
+
+  // Valider le titre
+  if (titre.trim() === '') {
+      document.querySelector('#titre + span').innerText = 'Le titre est requis.';
+      isValid = false;
+  }
+
+  // Valider la catégorie
+  if (categorie === 'Selectionner') {
+      document.querySelector('#categorie + span').innerText = 'Veuillez sélectionner une catégorie.';
+      isValid = false;
+  }
+
+  // Valider la description
+  if (description.trim() === '') {
+      document.querySelector('#description + span').innerText = 'La description est requise.';
+      isValid = false;
+  }
+
+  // Si toutes les validations sont passées
+  if (isValid) {
+      // Récupérer les idées existantes du local storage
+      let idees = JSON.parse(localStorage.getItem('idees')) || [];
+
+      // Ajouter la nouvelle idée au tableau
+      const nouvelleIdee = {
+          titre: titre,
+          categorie: categorie,
+          description: description,
+          status: '' // 'approuvé' ou 'désapprouvé'
+      };
+      idees.push(nouvelleIdee);
+
+      // Enregistrer le tableau mis à jour dans le local storage
+      localStorage.setItem('idees', JSON.stringify(idees));
+
+      // Afficher les idées mises à jour
+      afficherIdees(idees);
+
+      // Réinitialiser le formulaire
+      document.getElementById('myform').reset();
+  }
+});
+
+function afficherIdees(idees) {
+  const cardContainer = document.getElementById('card');
+  cardContainer.innerHTML = ''; // Effacer le contenu précédent
+
+  idees.forEach((idee, index) => {
+      const card = document.createElement('div');
+      card.classList.add('card');
+      card.innerHTML = `
+          <h3>${idee.titre}</h3>
+          <p>Catégorie: ${idee.categorie}</p>
+          <p>${idee.description}</p>
+          <button class="approve" onclick="approuverIdee(${index})">Approuver</button>
+          <button class="disapprove" onclick="desapprouverIdee(${index})">Désapprouver</button>
+          <button onclick="supprimerIdee(${index})">Supprimer</button>
+      `;
+      if (idee.status === 'approuvé') {
+          card.style.backgroundColor = '#2ecc71';
+          card.style.color = 'white';
+          card.querySelector('.disapprove').style.display = 'none';
+      } else if (idee.status === 'désapprouvé') {
+          card.style.backgroundColor = 'red';
+          card.style.color = 'white';
+          card.querySelector('.approve').style.display = 'none';
+      }
+      cardContainer.appendChild(card);
+  });
+}
+
+function approuverIdee(index) {
+  let idees = JSON.parse(localStorage.getItem('idees')) || [];
+  idees[index].status = 'approuvé';
+  localStorage.setItem('idees', JSON.stringify(idees));
+  afficherIdees(idees);
+}
+
+function desapprouverIdee(index) {
+  let idees = JSON.parse(localStorage.getItem('idees')) || [];
+  idees[index].status = 'désapprouvé';
+  localStorage.setItem('idees', JSON.stringify(idees));
+  afficherIdees(idees);
+}
+
+function supprimerIdee(index) {
+  let idees = JSON.parse(localStorage.getItem('idees')) || [];
+  idees.splice(index, 1);
+  localStorage.setItem('idees', JSON.stringify(idees));
+  afficherIdees(idees);
+}

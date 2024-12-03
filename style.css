@@ -1,34 +1,123 @@
+body{
+    margin:0;
+}
+header{
+    background-color:#e55039;
+    padding:3vh
+}
+h1{
+    color:#e55039
+}
+.container{
+    display:flex;
+    justify-content:space-evenly
+}
+.container1{
+    display:flex;
+    gap:8vh
+}
+form{
+    margin-top:12vh
+}
+label{
+    font-size:2.5vh;
+    color:#353b48
+}
+input{
+    width:45vh;
+    border:none;
+    border-bottom:solid;
+    border-bottom-width:thin;
+    margin-bottom:6vh;
+    border-bottom-color:#e55039
+}
+input:focus{
+    outline:none
+}
+select{
+    border:none;
+    border-bottom:solid;
+    border-bottom-width:thin;
+    border-bottom-color:#e55039
+}
+select:focus{
+    outline:none
+}
 
-body {
-    background-color: #f8f9fa;
+textarea{
+    border:none;
+    border-bottom:solid;
+    border-bottom-width:thin;
+    border-bottom-color:#e55039;
+    margin-bottom:8vh
 }
-.container {
-    background: #fff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width:90vh
+option:focus{
+    outline:none
 }
-h2 {
-    color: #343a40;
-    margin-bottom: 20px;
-    text-align: center;
+textarea:focus{
+  outline:none;
 }
-.form-group label {
-    font-weight: bold;
+button{
+    background:#e55039;
+    padding:1vh;
+    border:none;
+    color:white;
+    font-weight:300;
+    font-size:1.7vh;
+    border-radius:2vh
 }
-.form-control {
-    border-radius: 5px;
+button:hover{
+    background-color:#353b48
 }
-.btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
-    border-radius: 5px;
+h2{
+    margin-left:8vh;
+    margin-top:15vh
 }
-.btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #004085;
+.error {
+    color: red;
+    font-size: 0.8em;
 }
-.text-danger {
-    font-size: 0.875rem;
+#card {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 2vh;
+}
+
+
+.card {
+    width: 45vh; /* Trois cartes par ligne */
+    padding: 2vh;
+    border: 0.2vh solid #ccc;
+    border-radius: 1vh;
+    box-shadow: 0 0.3vh 0.6vh rgba(0,0,0,0.1);
+    background-color: white;
+    margin-bottom: 2vh;
+}
+
+
+.card h3 {
+    margin-top: 0;
+}
+
+.card button {
+    margin-right: 10px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.card button.approve {
+    background-color: green;
+    color: white;
+}
+
+.card button.disapprove {
+    background-color: red;
+    color: white;
+}
+
+.card button:hover {
+    opacity: 0.8;
 }

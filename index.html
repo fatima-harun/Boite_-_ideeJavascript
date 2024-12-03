@@ -1,47 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulaire Bootstrap</title>
-    <!-- Inclure le CSS de Bootstrap -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <title>Boxe idée avec Javascript</title>
 </head>
 <body>
-    <div class="container mt-5">
-        <h2>Boite à idée</h2>
-        <form method="POST">
-            <div class="form-group">
-                <label for="titre">Titre de l'idée</label>
-                <input type="text" class="form-control" id="titre" placeholder="Entrez votre idée">
-                <span id="error-titre" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label for="categorie">Sélectionner une catégorie</label>
-                <select class="form-control" id="categorie">
-                  <option value="Sport">Sport</option>
-                  <option value="Sante">Santé</option>
-                  <option value="Education">Éducation</option>
-                  <option value="Technologie">Technologie</option>
-                  <option value="Environnement">Environnement</option>
-                  <option value="Autres">Autres</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="description">Description</label>
-                <textarea class="form-control" id="description" placeholder="Donner une description de votre idée" rows="7"></textarea>
-                <span id="error-description" class="text-danger"></span>
-            </div>
-            <button type="submit" class="btn btn-info" value="ajoutidee">Ajouter une idée</button>
-        </form>
-        <div id="message" class="mt-3"></div>
+    <header>
+        <nav>
+        </nav>
+    </header>
+    <div class="container">
+        <div class="box1">
+            <form action="" id="myform">
+                <h1>Formulaire d'ajout d'idées</h1>
+                <div class="container1">
+                    <div>
+                      <p>  <label for="titre">Titre</label></p>
+                        <input type="text" id="titre" placeholder="Donner le titre de l'idée" >
+                        <span id="error"></span>
+                    </div>
+                    <div>
+                        <p><label for="categorie">Catégorie</label></p>
+                        <select name="categorie" id="categorie">
+                            <option selected>Selectionner</option>
+                            <option value="sport">Sport</option>
+                            <option value="Education">Education</option>
+                            <option value="Environnement">Environnement</option>
+                            <option value="Santé">Santé</option>
+                            <option value="Technologie">Technologie</option>
+                            <option value="Autres">Autres</option>
+                        </select>
+                        <span id="error"></span>
+                    </div>
+                </div>
+                <div>
+                    <p><label for="description">Description</label></p> 
+                     <textarea name="description" id="description" placeholder="Faites la description de l'idée" cols="74" rows="10"></textarea>
+                     <span id="error"></span>
+                 </div>
+                 <button type="button"  class="submit" >Soumettre</button>
+            </form>
+        </div>
+        <div class="box2">
+            <img src="img/4884792-removebg-preview.png" alt="Image de présentation">
+        </div>
     </div>
-    <div id="containeridea" class="mt-5"></div>
-    <!-- Inclure le JS de Bootstrap et ses dépendances -->
+    <div>
+        <h2>Liste des idées</h2>
+        <div id="card">
+              
+        </div>
+    </div>
     <script src="script.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
